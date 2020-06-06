@@ -17,7 +17,6 @@ class _MyAppState extends State<MyApp> {
   List<Game> gameList = [];
 
   Future<Null> _fetchGames() async {
-    gameList = [];
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -27,6 +26,7 @@ class _MyAppState extends State<MyApp> {
       games.data.sort((a, b) => a.title.compareTo(b.title));
 
       setState(() {
+        gameList.clear();
         gameList.addAll(games.data);
       });
     } else {

@@ -2,17 +2,18 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:switch_sales/gameInfo.dart';
 import 'package:switch_sales/models/dataEnvelope.dart';
 import 'package:switch_sales/models/game.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MainApp());
 
-class MyApp extends StatefulWidget {
+class MainApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MainApp> {
   final String url = 'http://switchsales.herokuapp.com/games/eshop-sales';
   List<Game> gameList = [];
 
@@ -113,7 +114,8 @@ class _MyAppState extends State<MyApp> {
                         ],
                       ),
                     )),
-                onTap: () => print(gameList[index].title),
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => GameInfo())),
               );
             },
           ),

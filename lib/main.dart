@@ -63,57 +63,58 @@ class _MyAppState extends State<MyApp> {
           child: ListView.builder(
             itemCount: gameList.length,
             itemBuilder: (context, index) {
-              return Padding(
-                  padding:
-                      EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
-                  child: Card(
-                      elevation: 0,
-                      borderOnForeground: false,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            top: 4, bottom: 4, left: 4, right: 4),
-                        child: Row(
-                          children: <Widget>[
-                            new FadeInImage.assetNetwork(
-                                image: gameList[index].boxArt,
-                                placeholder: 'assets/images/placeholder.png',
-                                width: 70,
-                                height: 70),
-                            Flexible(
-                                child: Padding(
-                              padding: EdgeInsets.only(left: 8, right: 8),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(gameList[index].title,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'GoogleSans',
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromARGB(
-                                              255, 37, 118, 188))),
-                                  Text(
-                                    "\$${gameList[index].price.toString()}",
+              return InkWell(
+                child: Card(
+                    elevation: 0,
+                    borderOnForeground: false,
+                    color: Colors.transparent,
+                    child: Padding(
+                      padding:
+                          EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
+                      child: Row(
+                        children: <Widget>[
+                          new FadeInImage.assetNetwork(
+                              image: gameList[index].boxArt,
+                              placeholder: 'assets/images/placeholder.png',
+                              width: 70,
+                              height: 70),
+                          Flexible(
+                              child: Padding(
+                            padding: EdgeInsets.only(left: 8, right: 8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(gameList[index].title,
+                                    overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'GoogleSans',
-                                        color: Color.fromARGB(255, 67, 67, 67),
-                                        decoration: TextDecoration.lineThrough),
-                                  ),
-                                  Text(
-                                    "\$${gameList[index].salePrice.toString()}",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'GoogleSans',
-                                        color: Colors.orange),
-                                  ),
-                                ],
-                              ),
-                            ))
-                          ],
-                        ),
-                      )));
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            Color.fromARGB(255, 37, 118, 188))),
+                                Text(
+                                  "\$${gameList[index].price.toString()}",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'GoogleSans',
+                                      color: Color.fromARGB(255, 67, 67, 67),
+                                      decoration: TextDecoration.lineThrough),
+                                ),
+                                Text(
+                                  "\$${gameList[index].salePrice.toString()}",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'GoogleSans',
+                                      color: Colors.orange),
+                                ),
+                              ],
+                            ),
+                          ))
+                        ],
+                      ),
+                    )),
+                onTap: () => print(gameList[index].title),
+              );
             },
           ),
           onRefresh: _fetchGames),

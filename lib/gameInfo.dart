@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:switch_sales/models/game.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,6 +14,29 @@ class GameInfo extends StatelessWidget {
       await launch(url);
     } else {
       throw 'Could not open $url';
+    }
+  }
+
+  String _setReleaseDate() {
+    DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+    return dateFormat.parse(game.releaseDate.split('T')[0]).toString();
+  }
+
+  String _setRating() {
+    if (game.esrb == "Everyone") {
+      return 'assets/images/ic_everyone.png';
+    } else if (game.esrb == "Teen") {
+      return 'assets/images/ic_teen.png';
+    } else if (game.esrb == "Mature") {
+      return 'assets/images/ic_mature17plus.png';
+    } else if (game.esrb == "Everyone 10+") {
+      return 'assets/images/ic_everyone10plus.png';
+    } else if (game.esrb == "Adults Only") {
+      return 'assets/images/ic_adultsonly.png';
+    } else if (game.esrb == "Early Childhood") {
+      return 'assets/images/ic_earlychildhood.png';
+    } else {
+      return 'assets/images/ic_ratingpending.png';
     }
   }
 
@@ -118,6 +142,43 @@ class GameInfo extends StatelessWidget {
                     child: Text(
                       game.description,
                       style: TextStyle(fontSize: 16, fontFamily: 'GoogleSans'),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
+                    child: Container(
+                      width: double.infinity,
+                      height: 1,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Release Date: ${_setReleaseDate()}",
+                              style: TextStyle(
+                                  fontSize: 16, fontFamily: 'GoogleSans'),
+                            ),
+                            Text("Category: ${game.categories}",
+                                style: TextStyle(
+                                    fontSize: 16, fontFamily: 'GoogleSans')),
+                            Text("Company: ${game.company}",
+                                style: TextStyle(
+                                    fontSize: 16, fontFamily: 'GoogleSans'))
+                          ],
+                        ),
+                        Image.asset(
+                          _setRating(),
+                          height: 80,
+                        )
+                      ],
                     ),
                   )
                 ],

@@ -23,7 +23,7 @@ class _MyAppState extends State<MainApp> {
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
 
-      var games = new DataEnvelope.fromJson(jsonResponse);
+      var games = DataEnvelope.fromJson(jsonResponse);
       games.data.sort((a, b) => a.title.compareTo(b.title));
 
       setState(() {
@@ -60,7 +60,7 @@ class _MyAppState extends State<MainApp> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: new RefreshIndicator(
+      body: RefreshIndicator(
           child: ListView.builder(
             itemCount: gameList.length,
             itemBuilder: (context, index) {
@@ -74,7 +74,7 @@ class _MyAppState extends State<MainApp> {
                           EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
                       child: Row(
                         children: <Widget>[
-                          new FadeInImage.assetNetwork(
+                          FadeInImage.assetNetwork(
                               image: gameList[index].boxArt,
                               placeholder: 'assets/images/placeholder.png',
                               width: 70,
@@ -114,8 +114,12 @@ class _MyAppState extends State<MainApp> {
                         ],
                       ),
                     )),
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => GameInfo())),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => GameInfo(
+                              game: gameList[index],
+                            ))),
               );
             },
           ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_image/network.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:switch_sales/gameInfo.dart';
@@ -74,11 +75,16 @@ class _MyAppState extends State<MainApp> {
                           EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
                       child: Row(
                         children: <Widget>[
-                          FadeInImage.assetNetwork(
-                              image: gameList[index].boxArt,
-                              placeholder: 'assets/images/placeholder.png',
-                              width: 70,
-                              height: 70),
+                          FadeInImage(
+                            fadeInDuration: Duration(milliseconds: 1),
+                            image:
+                                NetworkImageWithRetry(gameList[index].boxArt),
+                            placeholder:
+                                Image.asset("assets/images/placeholder.png")
+                                    .image,
+                            width: 70,
+                            height: 70,
+                          ),
                           Flexible(
                               child: Padding(
                             padding: EdgeInsets.only(left: 8, right: 8),
